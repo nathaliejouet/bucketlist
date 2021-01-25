@@ -1,13 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href={{ asset("css/style.css") }}>
+    </style>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}"/>
+    <title> BucketList</title>
+</head>
+<body>
+<header>
+    <img class="logo" src="{{ asset('img/logo-512.png') }}" alt="Logo">
+</header>
+<main>
+    <h1>BucketList - {% block title %} Home {% endblock %}</h1>
+    <nav>
+        <li> {% block link  %} <a href="{{ path('mainController_firstPage') }}">Page 1</a> {% endblock %}</li>
+    </nav>
+</main>
+</body>
+<footer>
+    ©Bucket-List {{ "now"|date("Y") }}
+</footer>
 </html>
