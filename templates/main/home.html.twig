@@ -1,2 +1,6 @@
 {% extends ('base.html.twig') %}
 
+{% block nav %}
+    <li><a href="{{ path('wishController_list') }}">Idea list</a></li>
+    <li><a href="{{ path('mainController_aboutUs') }}">About Us</a></li>
+{% endblock %}
