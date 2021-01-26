@@ -10,7 +10,7 @@ class MainController extends AbstractController
 {
 
     /**
-     * @Route ("/", name="mainController_home")
+     * @Route ("/", name="main_home")
      */
     public function home() : Response
     {
@@ -18,7 +18,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/about-us", name="mainController_about-us")
+     * @Route ("/about-us", name="main_about-us")
      */
     public function aboutUs() : Response
     {

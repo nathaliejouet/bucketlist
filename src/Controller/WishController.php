@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class WishController extends AbstractController
 {
     /**
-     * @Route("/wish", name="wishController_list")
+     * @Route("/wish", name="wish_list")
      */
     public function list() : Response
     {
@@ -17,7 +17,7 @@ class WishController extends AbstractController
     }
 
     /**
-     * @Route("/wish/{id}", name="wishController_detail", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("/wish/{id}", name="wish_detail", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function detail($id) : Response
     {
