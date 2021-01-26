@@ -11,15 +11,15 @@ class WishController extends AbstractController
     /**
      * @Route("/wish", name="wishController_list")
      */
-    public function list()
+    public function list() : Response
     {
         return $this->render('wish/list.html.twig', []);
     }
 
     /**
-     * @Route("/wish/{id}", name="wishController_detail", requirements={"id":"\d+"})
+     * @Route("/wish/{id}", name="wishController_detail", methods={"GET"}, requirements={"id":"\d+"})
      */
-    public function detail($id)
+    public function detail($id) : Response
     {
         dump($id);
         return $this->render('wish/detail.html.twig', []);
