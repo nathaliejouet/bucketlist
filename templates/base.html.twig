@@ -5,19 +5,21 @@
     <link rel="stylesheet" href={{ asset("css/style.css") }}>
     </style>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}"/>
-    <title> BucketList</title>
+    <title> {% block title %} BucketList {% endblock %}</title>
 </head>
 <body>
+{% block body %}
 <header>
     <img class="logo" src="{{ asset('img/logo-512.png') }}" alt="Logo">
 </header>
 <main>
-    <h1>BucketList - {% block title %} Home {% endblock %}</h1>
+    <h1>BucketList - {% block pageName %} Home {% endblock %}</h1>
     <nav>
-        <li> {% block link  %} <a href="{{ path('mainController_firstPage') }}">Page 1</a> {% endblock %}</li>
+        <li> {% block link %} <a href="{{ path('mainController_firstPage') }}">Page 1</a> {% endblock %}</li>
     </nav>
 </main>
 </body>
+{% endblock %}
 <footer>
     ©Bucket-List {{ "now"|date("Y") }}
 </footer>
