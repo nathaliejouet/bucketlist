@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\WishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WishRepository::class)
@@ -18,16 +19,23 @@ class Wish
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Please provide a name for the idea")
+     * @Assert\Length(max=250, maxMessage="Max 250 characters")
      * @ORM\Column(type="string", length=250, nullable=false)
      */
     private $title;
 
     /**
+     * @Assert\NotBlank(message="Please provide a title for the idea")
+     * @Assert\Length(min=150, minMessage="Min 150 characters", max=500, maxMessage="Max 500 characters")
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message="Please provide an author for the idea")
+     * @Assert\Length(max=50, maxMessage="Max 50 characters")
+     * @Assert\Regex(pattern="/^[a-zA-Z]{1,20}\d{0,3}$/", message="The value {{ value }} is not a valid text.")
      * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $author;

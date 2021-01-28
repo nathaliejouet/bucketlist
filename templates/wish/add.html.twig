@@ -1,0 +1,13 @@
+{% extends ('base.html.twig') %}
+{% block body %}
+    <div class="container-fluid p-4">
+        <h1> Add an idea </h1>
+    </div>
+    <div class="container-fluid p-4">
+        {{ form_start(wishForm) }}
+        {{ form_widget(wishForm) }}
+        <button class="btn btn-primary"  type="submit">Send</button>
+        {{ form_end(wishForm) }}
+    </div>
+{% endblock %}
+

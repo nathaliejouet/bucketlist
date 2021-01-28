@@ -3,25 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href={{ asset("css/style.css") }}>
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css>
     </style>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}"/>
     <title> {% block title %} BucketList {% endblock %}</title>
 </head>
-{% block body %}
-    <body>
-    <header>
-        <a href="{{ path('main_home') }}" title="GO back home">
-            <img class="logo" src="{{ asset('img/logo-512.png') }}" alt="Logo">
-        </a>
-    </header>
-    <main>
-        <h1>BucketList - {% block pageName %} Home {% endblock %}</h1>
-        {% block nav %}
-        {% endblock %}
-    </main>
-    </body>
-{% endblock %}
-<footer>
-    ©Bucket-List {{ "now"|date("Y") }}
-</footer>
+<div class="container-fluid p-4">
+    {% for label, messages in app.flashes(['success']) %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% block body %}
+        <body>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <header>
+                    <a href="{{ path('main_home') }}" title="GO back home">
+                        <img class="logo" src="{{ asset('img/logo-512.png') }}" alt="Logo">
+                    </a>
+                </header>
+            </div>
+            <div class="form-group col-md-6">
+                <main>
+                    <h1>BucketList - {% block pageName %} Home {% endblock %}</h1>
+                    <div class="form-group col-md-12">
+                        {% block nav %}
+                        {% endblock %}
+                    </div>
+                </main>
+            </div>
+        </div>
+        </body>
+
+    {% endblock %}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+        </div>
+        <div class="form-group col-md-6">
+            <footer>
+                <div>
+                    <p> ©Bucket-List {{ "now"|date("Y") }}</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
 </html>
