@@ -35,7 +35,7 @@ class Wish
     /**
      * @Assert\NotBlank(message="Please provide an author for the idea")
      * @Assert\Length(max=50, maxMessage="Max 50 characters")
-     * @Assert\Regex(pattern="/^[a-zA-Z]{1,20}\d{0,3}$/", message="The value {{ value }} is not a valid text.")
+     * @Assert\Regex(pattern="/[A-Za-z]/", message="The value {{ value }} is not a valid text.")
      * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $author;

@@ -19,8 +19,15 @@ class WishController extends AbstractController
      */
     public function add(EntityManagerInterface $emi, Request $request)
     {
+        $faker = \Faker\Factory::create("fr_FR");
 
-        $wish = new Wish();
+        for ($i = 0; $i < 100; $i++) {
+            $wish = new Wish();
+            $wish->setTitle(rtrim($faker->sentence(6, true), '.'));
+            $wish->setDescription($faker->paragraph(5));
+            $wish->setAuthor($faker->name);
+        }
+
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
@@ -37,9 +44,9 @@ class WishController extends AbstractController
     /**
      * @Route("/wish", name="wish_list")
      */
-    public function list(WishRepository $wr): Response
+    public function list(WishRepository $wishRepository): Response
     {
-        $records = $wr->findBy(
+        $records = $wishRepository->findBy(
             ['isPublished' => 'true'],
             ['title' => 'ASC']
         );

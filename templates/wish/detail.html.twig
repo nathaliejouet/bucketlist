@@ -6,8 +6,8 @@
 {% endblock %}
 {% block body %}
     {{ parent() }} <br>
-    <div class = container>
-        <h1>{{ record.title }}</h1>
+    <div class=container-fluid>
+        <h2>{{ record.title }}</h2>
         <p>{{ record.author }}</p>
         <p>{{ record.description }}</p>
         <p>{{ record.dateCreated|date('Y-m-d') }}</p>
