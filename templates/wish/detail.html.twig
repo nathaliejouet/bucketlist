@@ -9,6 +9,7 @@
     <div class=container-fluid>
         <h2>{{ record.title }}</h2>
         <p>{{ record.author }}</p>
+        <p>{{ record.category.name }}</p>
         <p>{{ record.description }}</p>
         <p>{{ record.dateCreated|date('Y-m-d') }}</p>
     </div>

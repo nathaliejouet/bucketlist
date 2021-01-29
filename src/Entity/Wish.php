@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\WishRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +50,14 @@ class Wish
      * @ORM\Column(type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="wishes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+
 
     public function getId(): ?int
     {
@@ -104,5 +113,18 @@ class Wish
     {
         $this->dateCreated = $dateCreated;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
 
 }

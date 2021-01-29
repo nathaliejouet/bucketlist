@@ -3,7 +3,7 @@
 {% block body %}
     {{ parent() }} <br>
     <div class="container-fluid">
-        {{ form_start(wishForm) }}
+        {{ form_start(wishForm, {attr: {'novalidate' : 'novalidate'}}) }}
         {{ form_widget(wishForm) }}
         <button class="btn btn-primary" type="submit">Send</button>
         {{ form_end(wishForm) }}

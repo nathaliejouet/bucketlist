@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
@@ -19,20 +20,13 @@ class WishController extends AbstractController
      */
     public function add(EntityManagerInterface $emi, Request $request)
     {
-        $faker = \Faker\Factory::create("fr_FR");
-
-        for ($i = 0; $i < 100; $i++) {
-            $wish = new Wish();
-            $wish->setTitle(rtrim($faker->sentence(6, true), '.'));
-            $wish->setDescription($faker->paragraph(5));
-            $wish->setAuthor($faker->name);
-        }
+        $wish = new Wish();
+        $wish->setIsPublished(true);
+        $wish->setDateCreated(new DateTime());
 
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
-            $wish->setIsPublished(true);
-            $wish->setDateCreated(new DateTime());
             $emi->persist($wish);
             $emi->flush();
             $this->addFlash('success', 'The idea have been saved !');
