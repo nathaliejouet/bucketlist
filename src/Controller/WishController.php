@@ -38,16 +38,11 @@ class WishController extends AbstractController
 
     /**
      * @Route("/wish", name="wish_list")
+     * @return Response
      */
     public function list(WishRepository $wishRepository): Response
     {
-        $records = $wishRepository->createQueryBuilder('w')
-            ->join('w.category', 'cat')
-            ->addSelect('cat')
-            ->addOrderBy('w.dateCreated', 'DESC');
-        $records->getQuery();
-        dump($records);
-        return $this->render('wish/list.html.twig', ['records' => new Paginator($records)]);
+        return $this->render('wish/list.html.twig', ['records' =>$wishRepository->Wish_list()]);
     }
 
     /**
