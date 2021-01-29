@@ -4,7 +4,7 @@
     <li><a href="{{ path('main_home') }}" title="GO back home">Home</a></li>
     <li><a href="{{ path('wish_add') }}" title="Add an idea">Add an idea</a></li> <br>
     {% for idea in records %}
-        <a href="{{ path('wish_detail', {id: idea.id}) }}">{{ idea.title }}  </a> <br>
+        <a href="{{ path('wish_detail', {id: idea.id}) }}">{{ idea.title }} - category : {{ idea.category.name}} </a> <br>
     {% else %}
         <p>There is no idea</p>
     {% endfor %}

@@ -8,6 +8,7 @@ use App\Form\WishType;
 use App\Repository\WishRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,12 +41,13 @@ class WishController extends AbstractController
      */
     public function list(WishRepository $wishRepository): Response
     {
-        $records = $wishRepository->findBy(
-            ['isPublished' => 'true'],
-            ['title' => 'ASC']
-        );
+        $records = $wishRepository->createQueryBuilder('w')
+            ->join('w.category', 'cat')
+            ->addSelect('cat')
+            ->addOrderBy('w.dateCreated', 'DESC');
+        $records->getQuery();
         dump($records);
-        return $this->render('wish/list.html.twig', ['records' => $records]);
+        return $this->render('wish/list.html.twig', ['records' => new Paginator($records)]);
     }
 
     /**
@@ -75,7 +77,8 @@ class WishController extends AbstractController
             ->getQuery();
 
         $qb->execute();
-        return $this->redirectToRoute('main_home');
+        $this->addFlash('success', 'The idea have been removed !');
+        return $this->redirectToRoute('wish_list');
     }
 
 }
