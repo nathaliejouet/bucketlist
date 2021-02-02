@@ -42,19 +42,18 @@ class WishController extends AbstractController
      */
     public function list(WishRepository $wishRepository): Response
     {
-        return $this->render('wish/list.html.twig', ['records' =>$wishRepository->Wish_list()]);
+        return $this->render('wish/list.html.twig', ['records' => $wishRepository->wish_list()]);
     }
 
     /**
      * @Route("/wish/{id}", name="wish_detail", methods={"GET"}, requirements={"id":"\d+"})
      */
-    public function detail($id, EntityManagerInterface $emi): Response
+    public function detail(WishRepository $wishRepository, $id): Response
     {
-        $record = $emi->getRepository("App:Wish")->find($id);
+        $record = $wishRepository->wish_by_id($id);
         if (!$record) {
             throw $this->createNotFoundException('Idea not found');
         }
-
         return $this->render('wish/detail.html.twig', ['record' => $record]);
     }
 
@@ -69,9 +68,8 @@ class WishController extends AbstractController
             ->delete('App:Wish', 'w')
             ->where('w.id = :id')
             ->setParameter('id', $id)
-            ->getQuery();
-
-        $qb->execute();
+            ->getQuery()
+            ->execute();
         $this->addFlash('success', 'The idea have been removed !');
         return $this->redirectToRoute('wish_list');
     }
