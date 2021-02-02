@@ -1,5 +1,9 @@
 {% extends ('base.html.twig') %}
-
+    {% block welcomeMessage %}
+        {% if app.user %}
+           <h1>Hello {{app.user.username|upper }} ! </h1>
+        {% endif %}
+    {% endblock %}
 {% block nav %}
     {% if app.user %}
         <div>
