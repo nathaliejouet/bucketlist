@@ -1,6 +1,7 @@
 {% extends ('base.html.twig') %}
+
 {% block pageName %} Add an idea {% endblock %}
-{% block body %}
+{% block nav %}
     {{ parent() }} <br>
     <div class="container-fluid">
         {{ form_start(wishForm, {attr: {'novalidate' : 'novalidate'}}) }}
@@ -9,4 +10,5 @@
         {{ form_end(wishForm) }}
     </div>
 {% endblock %}
+
 

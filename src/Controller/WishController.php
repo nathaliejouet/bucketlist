@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Utile\Censurator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -16,10 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class WishController extends AbstractController
 {
+
     /**
      * @Route("/wish/add", name="wish_add")
      */
-    public function add(EntityManagerInterface $emi, Request $request)
+    public function add(EntityManagerInterface $emi, Request $request, Censurator $censurator)
     {
         $wish = new Wish();
         $wish->setIsPublished(true);
@@ -28,6 +30,12 @@ class WishController extends AbstractController
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
+
+            $description = $wishForm['description']->getData();
+            $newDescription = $censurator->purify($description);
+            $wish->setDescription($newDescription);
+
+
             $emi->persist($wish);
             $emi->flush();
             $this->addFlash('success', 'The idea have been saved !');
@@ -73,5 +81,6 @@ class WishController extends AbstractController
         $this->addFlash('success', 'The idea have been removed !');
         return $this->redirectToRoute('wish_list');
     }
+
 
 }
