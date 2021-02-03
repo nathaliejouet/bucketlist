@@ -31,11 +31,9 @@ class WishController extends AbstractController
         $wishForm->handleRequest($request);
         if ($wishForm->isSubmitted() && $wishForm->isValid()) {
 
-            $description = $wishForm['description']->getData();
-            $newDescription = $censurator->purify($description);
+            $newDescription = $censurator->purify($wish->getDescription());
             $wish->setDescription($newDescription);
-
-
+            dd($wish);
             $emi->persist($wish);
             $emi->flush();
             $this->addFlash('success', 'The idea have been saved !');
