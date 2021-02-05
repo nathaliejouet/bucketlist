@@ -39,15 +39,10 @@ class WishRepository extends ServiceEntityRepository
     public function findIdea($name): array
     {
         $queryBuilder = $this->createQueryBuilder('w')
-            ->select('w.title');
-
-        $queryBuilder->andWhere('w.title LIKE :name')
+            ->andWhere('w.title LIKE :name')
             ->setParameter(':name', "%" . $name . "%");
 
-        $query = $queryBuilder->getQuery();
-        $query->setMaxResults(15);
-        $result = $query->getArrayResult();
-        return array_column($result, "1");
+        return $queryBuilder->getQuery()->getResult();
 
     }
 

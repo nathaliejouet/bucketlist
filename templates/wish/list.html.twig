@@ -5,20 +5,47 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{path('main_home')}}">Home</a>
+                    <a class="nav-link" href="{{ path('main_home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{path('wish_add')}}">Add an indea</a>
+                    <a class="nav-link" href="{{ path('wish_add') }}">Add an indea</a>
                 </li>
             </ul>
         </div>
     </nav>
 {% endblock %}
 {% block body %}
+
+    <form action="{{ path('wish_search') }}" id="search-wish-form">
+        <label for="search-wish-input">Search an idea :</label>
+        <input id="search-wish-input" type="search" name="search">
+        <div id="wish-list-search"></div>
+    </form>
+    <div id="wish-list">
     {% for idea in records %}
         <a href="{{ path('wish_detail', {id: idea.id}) }}">{{ idea.title }} - category : {{ idea.category.name }} </a>
-        <br>
+        {# <button class="delete-wish-btn" data-deleteUrl="{{ path('wish_delete', {id:wish.id )}}">Delete</button> #}
+        </div>
     {% else %}
         <p>There is no idea</p>
     {% endfor %}
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        $("#search-wish-input").on("keyup", function () {
+            $.ajax({
+                url: $("#search-wish-form").attr("action"),
+                data: {
+                    "search": $("#search-wish-input").val()
+                },
+            })
+                .done(function (response) {
+                    $("#wish-list-search").html(response)
+                });
+        });
+    </script>
+
 {% endblock %}

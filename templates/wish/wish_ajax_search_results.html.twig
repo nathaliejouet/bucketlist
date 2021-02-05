@@ -1,0 +1,7 @@
+<ul class="wishes-suggestions">
+    {% for wish in wishes %}
+      <li>
+            <a href="{{ wish.title}}">{{ wish.title }}</a>
+      </li>
+    {% endfor %}
+</ul>

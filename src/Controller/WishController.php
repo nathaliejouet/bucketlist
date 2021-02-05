@@ -33,7 +33,6 @@ class WishController extends AbstractController
 
             $newDescription = $censurator->purify($wish->getDescription());
             $wish->setDescription($newDescription);
-            dd($wish);
             $emi->persist($wish);
             $emi->flush();
             $this->addFlash('success', 'The idea have been saved !');
@@ -80,5 +79,17 @@ class WishController extends AbstractController
         return $this->redirectToRoute('wish_list');
     }
 
+    /**
+     * @Route("/wish/search", name="wish_search", methods={"GET"})
+     */
+    public function search(WishRepository $wishRepository, Request $request): Response
+    {
+        $searchedWish= $request->query->get('search');
+
+        $wishes = $wishRepository->findIdea($searchedWish);
+        return $this->render('wish/wish_ajax_search_results.html.twig', [
+            'wishes' => $wishes,
+        ]);
+    }
 
 }
